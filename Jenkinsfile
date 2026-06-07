@@ -21,7 +21,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_KEY')]) {
                     bat """
                         docker run --rm -v "%cd%:/usr/src" sonarsource/sonar-scanner-cli ^
-                        -Dsonar.projectKey=chanchal-2512_finance-tracker ^
+                        -Dsonar.projectKey=chanchal-2512_fin-track ^
                         -Dsonar.organization=chanchal-2512 ^
                         -Dsonar.sources=. ^
                         -Dsonar.exclusions=**/node_modules/**,**/build/**,**/.git/** ^
