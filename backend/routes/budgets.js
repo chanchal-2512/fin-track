@@ -57,7 +57,7 @@ router.post("/", (req, res) => {
 
   res.json({ key, category, limit: budgets[key][category] });
 });
-
+// PUT update budget limit for a category in a month
 // DELETE a budget category for a month
 router.delete("/", (req, res) => {
   const { month, year, category } = req.body;
