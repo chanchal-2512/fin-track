@@ -1,29 +1,26 @@
-# ─── Stage 1: Build React Frontend ───────────────────────────────────────────
+# Stage 1: Build React Frontend
 FROM node:18-alpine AS frontend-build
 
 WORKDIR /app/frontend
 COPY frontend/package*.json ./
 RUN npm install
 COPY frontend/ .
+
+# Accept build arg and set as env var for React build
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+
 RUN npm run build
 
-# ─── Stage 2: Run Node Backend + Serve Built Frontend ─────────────────────────
+# Stage 2: Run Node Backend
 FROM node:18-alpine
 
 WORKDIR /app
-
-# Install backend dependencies
 COPY backend/package*.json ./backend/
 RUN cd backend && npm install --production
-
-# Copy backend source
 COPY backend/ ./backend/
-
-# Copy built React app into backend's public folder
 COPY --from=frontend-build /app/frontend/build ./backend/public
 
 WORKDIR /app/backend
-
 EXPOSE 5000
-
 CMD ["node", "server.js"]
