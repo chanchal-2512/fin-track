@@ -52,7 +52,7 @@ pipeline {
                 script {
                     appImage = docker.build(
                         "${DOCKER_HUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}",
-                        "--build-arg REACT_APP_API_URL=https://fin-track-9gkv.onrender.com/api ."
+                        "--no-cache --build-arg REACT_APP_API_URL=https://fin-track-9gkv.onrender.com/api ."
                     )
                     bat "docker tag ${DOCKER_HUB_USER}/${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_HUB_USER}/${IMAGE_NAME}:latest"
                 }

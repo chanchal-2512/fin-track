@@ -2,14 +2,14 @@
 FROM node:18-alpine AS frontend-build
 
 WORKDIR /app/frontend
-COPY frontend/package*.json ./
-RUN npm install
-COPY frontend/ .
 
-# Accept build arg and set as env var for React build
+# Declare build arg BEFORE copying code
 ARG REACT_APP_API_URL
 ENV REACT_APP_API_URL=$REACT_APP_API_URL
 
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend/ .
 RUN npm run build
 
 # Stage 2: Run Node Backend
