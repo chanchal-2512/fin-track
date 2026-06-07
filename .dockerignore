@@ -1,0 +1,8 @@
+**/node_modules
+**/build
+**/.git
+**/.env
+**/data/*.json
+Jenkinsfile
+README.md
+*.zip
